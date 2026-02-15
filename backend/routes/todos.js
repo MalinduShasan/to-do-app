@@ -30,6 +30,23 @@ router.get("/", async (req, res) => {
     }
 });
 
+//update a to-do
+router.put("/:id", async (req, res)=>{
+    try{
+        const {id} = req.params;
+        const {description, completed} = req.body;
+        const updateTodo = await pool.query(
+            "UPDATE todo SET description = $1, completed = $2 WHERE todo_id = $3 RETURNING *",
+            [description, completed, id]
+        );
+
+        res.json(updateTodo.rows[0]);
+    } catch (err){
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
+
 
 
 export default router;
