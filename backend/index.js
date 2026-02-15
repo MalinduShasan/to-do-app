@@ -1,10 +1,15 @@
 import express from 'express';
+import cors from "cors";
+import todoRoutes from "./routes/todos.js";
+
 
 const app = express();
 
-app.get("/about", (req, res) =>{
-    res.send("Hello World!");
-});
+app.use(cors());
+app.use(express.json());
+
+app.use("/todos", todoRoutes);
+
 
 app.listen(5000, () => {
     console.log("Server is listning on port 5000");

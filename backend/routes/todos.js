@@ -3,6 +3,7 @@ import pool from "../db.js";
 
 const router = Router();
 
+//create a new to-do
 router.post("/", async (req, res) => {
     try{
         const {description, completed} = req.body;
@@ -16,3 +17,19 @@ router.post("/", async (req, res) => {
         res.status(500).send("Server Error");
     }
 });
+
+//get all to-dos
+router.get("/", async (req, res) => {
+    try{
+        const allTodos = await pool.query("SELECT * FROM todo");
+        res.json(allTodos.rows);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+
+    }
+});
+
+
+
+export default router;
