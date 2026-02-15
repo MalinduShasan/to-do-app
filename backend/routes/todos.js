@@ -3,7 +3,7 @@ import pool from "../db.js";
 
 const router = Router();
 
-//create a new to-do
+//create a new todo
 router.post("/", async (req, res) => {
     try{
         const {description, completed} = req.body;
@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
     }
 });
 
-//get all to-dos
+//get all todos
 router.get("/", async (req, res) => {
     try{
         const allTodos = await pool.query("SELECT * FROM todo");
@@ -30,7 +30,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-//update a to-do
+//update a todo
 router.put("/:id", async (req, res)=>{
     try{
         const {id} = req.params;
@@ -47,6 +47,16 @@ router.put("/:id", async (req, res)=>{
     }
 });
 
-
+//delete a todo
+router.delete("/:id", async(req, res) => {
+    try{
+        const{id} = req.params;
+        await pool.query("DELETE FROM todo WHERE todo_id = $1", [id]);
+        res.json("Todo was deleted...!");
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+});
 
 export default router;
