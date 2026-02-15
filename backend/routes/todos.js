@@ -40,7 +40,10 @@ router.put("/:id", async (req, res)=>{
             [description, completed, id]
         );
 
-        res.json(updateTodo.rows[0]);
+        res.json({
+            message: "Todo was updated...",
+            todo: updateTodo.rows[0],
+        });
     } catch (err){
         console.error(err.message);
         res.status(500).send("Server Error");
