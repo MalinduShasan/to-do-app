@@ -1,7 +1,31 @@
+import { useState } from 'react';
+import './index.css';
 
 function App() {
-  return <div>TODO APP PERN</div>;
-  
+
+  const [description, setDescription] = useState("");
+  const [todos, setTodos] = useState([]);
+  const [editTodos, setEditTodo] = useState(null);
+  const [editedText, setEditedText] = useState("");
+
+
+  return (
+  <div className="min-h-screen bg-gray-800 flex justify-center items-center p-4 ">
+    <div className="bg-gray-50 rounded-2xl shadow-xl w-full max-w-lg p-8">
+      <h1 className="text-4xl font-bold text-gray-600 mb-8">TODO APP PERN</h1>
+      <form className='flex items-center gap-2 shadow-sm border p-2 rounded-lg mb-6'>
+        <input
+          className='flex-1 outline-none px-3 py-2 text-gray-700 placeholder-gray-400'
+          type="text" 
+          value={description} 
+          onChange={(e)=>setDescription(e.target.value)}
+          placeholder='What needs to be done ?' required
+        />
+        <button className='bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md font-medium'>Add Task</button>
+      </form>
+    </div>
+  </div>
+  );
 }
 
 export default App
